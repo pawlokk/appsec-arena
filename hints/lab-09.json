@@ -1,0 +1,1 @@
+{"tier1": "Prototype pollution", "tier2": "Node.js deep-merge or object assignment uses user-controlled keys; pollute Object.prototype via __proto__ or constructor.prototype."}

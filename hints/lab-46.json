@@ -1,0 +1,1 @@
+{"tier1": "XPath injection authentication bypass", "tier2": "Login query built via XPath string concatenation on XML data store; inject to always-true condition bypassing password check."}

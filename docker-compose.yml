@@ -1,0 +1,77 @@
+version: "3.9"
+
+# AppSec Arena — docker-compose
+#
+# For local dev, run the platform directly with Python (see README).
+# docker-compose is optional — useful if you want the platform containerised too.
+#
+# Usage:
+#   docker-compose up platform        # platform only
+#   docker-compose up                 # platform + all labs
+
+services:
+  platform:
+    build: ./platform
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ARENA_SECRET=changeme
+    networks:
+      - arena
+
+  lab-01-python:
+    build: ./labs/lab-01-python
+    ports:
+      - "5101:5000"
+    environment:
+      - FLAG_LOCAL=${FLAG_LOCAL_01:-ARENA{LOCAL_set_me}}
+      - FLAG_PROOF=${FLAG_PROOF_01:-ARENA{PROOF_set_me}}
+    networks:
+      - arena
+
+  lab-02-php:
+    build: ./labs/lab-02-php
+    ports:
+      - "5102:5000"
+    environment:
+      - FLAG_LOCAL=${FLAG_LOCAL_02:-ARENA{LOCAL_set_me}}
+      - FLAG_PROOF=${FLAG_PROOF_02:-ARENA{PROOF_set_me}}
+    networks:
+      - arena
+
+  lab-03-java:
+    build: ./labs/lab-03-java
+    ports:
+      - "5103:5000"
+    environment:
+      - FLAG_LOCAL=${FLAG_LOCAL_03:-ARENA{LOCAL_set_me}}
+      - FLAG_PROOF=${FLAG_PROOF_03:-ARENA{PROOF_set_me}}
+    networks:
+      - arena
+
+  lab-04-node:
+    build: ./labs/lab-04-node
+    ports:
+      - "5104:5000"
+    environment:
+      - FLAG_LOCAL=${FLAG_LOCAL_04:-ARENA{LOCAL_set_me}}
+      - FLAG_PROOF=${FLAG_PROOF_04:-ARENA{PROOF_set_me}}
+    networks:
+      - arena
+
+  lab-05-dotnet:
+    build: ./labs/lab-05-dotnet
+    ports:
+      - "5105:5000"
+    environment:
+      - FLAG_LOCAL=${FLAG_LOCAL_05:-ARENA{LOCAL_set_me}}
+      - FLAG_PROOF=${FLAG_PROOF_05:-ARENA{PROOF_set_me}}
+    networks:
+      - arena
+
+networks:
+  arena:
+    external: true
+    name: appsec-arena

@@ -1,0 +1,1 @@
+{"tier1": "Apache Velocity server-side template injection", "tier2": "User input embedded in a Velocity template; use #set and ClassTool or Runtime reference to execute Java system commands."}

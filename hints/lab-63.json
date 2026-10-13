@@ -1,0 +1,4 @@
+{
+  "tier1": "This app has three vulnerability classes: a CORS misconfiguration that allows cross-origin credentialed requests, a SQL injection in a report listing parameter, and a server-side template injection in a report rendering endpoint.",
+  "tier2": "CORS: app.py apply_cors() — look at both branches. SQLi: app.py api_reports() around the ORDER BY clause — which parameter is actually used in the query? SSTI: app.py api_admin_preview() line ~220 — the input check runs elsewhere, not here."
+}

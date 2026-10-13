@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Chips — Remote Desktop</title>
+  <style>
+    body { margin: 0; background: #1a1a1a; color: #eee; font-family: monospace; }
+    #display { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .status { color: #aaa; font-size: 14px; }
+  </style>
+</head>
+<body>
+<div id="display">
+  <span class="status" id="msg">Connecting...</span>
+</div>
+<script>
+(function() {
+  var token = "{{token}}";
+  var wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  var ws = new WebSocket(wsProto + '//' + location.host + '/guaclite?token=' + encodeURIComponent(token));
+  ws.onopen = function() { document.getElementById('msg').textContent = 'Session established'; };
+  ws.onerror = function() { document.getElementById('msg').textContent = 'Connection failed'; };
+  ws.onclose = function() { document.getElementById('msg').textContent = 'Session closed'; };
+})();
+</script>
+</body>
+</html>

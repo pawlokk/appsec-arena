@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppSec Arena</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/css/platform.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">AppSec Arena</span>
+        <span class="logo-bracket">]</span>
+      </div>
+      <nav class="header-nav">
+        <a href="/directory" class="nav-link">Directory</a>
+        <span class="nav-tag">local instance</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1>Attack Surface</h1>
+      <p class="hero-sub">Intentionally vulnerable web apps. One environment. Every stack.</p>
+    </section>
+
+    <!-- Progress overview -->
+    <div class="progress-overview" id="progress-overview">
+      <div class="progress-row" id="progress-row-L1" data-level="1">
+        <span class="progress-label">L1</span>
+        <div class="progress-track"><div class="progress-fill" id="pfill-1"></div></div>
+        <span class="progress-count" id="pcount-1">0 / 0</span>
+      </div>
+      <div class="progress-row" id="progress-row-L2" data-level="2">
+        <span class="progress-label">L2</span>
+        <div class="progress-track"><div class="progress-fill" id="pfill-2"></div></div>
+        <span class="progress-count" id="pcount-2">0 / 0</span>
+      </div>
+      <div class="progress-row" id="progress-row-L3" data-level="3">
+        <span class="progress-label">L3</span>
+        <div class="progress-track"><div class="progress-fill" id="pfill-3"></div></div>
+        <span class="progress-count" id="pcount-3">0 / 0</span>
+      </div>
+      <div class="progress-row" id="progress-row-L4" data-level="4">
+        <span class="progress-label">L4</span>
+        <div class="progress-track"><div class="progress-fill" id="pfill-4"></div></div>
+        <span class="progress-count" id="pcount-4">0 / 0</span>
+      </div>
+      <div class="progress-row" id="progress-row-L5" data-level="5">
+        <span class="progress-label">L5</span>
+        <div class="progress-track"><div class="progress-fill progress-fill-l5" id="pfill-5"></div></div>
+        <span class="progress-count" id="pcount-5">0 / 0</span>
+      </div>
+    </div>
+
+    <!-- Running labs dropdown -->
+    <div class="running-tray" id="running-tray" style="display:none">
+      <button class="running-tray-btn" id="running-tray-btn" onclick="_toggleRunningDropdown()">
+        <span>▶ running</span>
+        <span class="running-tray-count" id="running-tray-count"></span>
+        <span class="running-tray-arrow" id="running-tray-arrow">▾</span>
+      </button>
+      <div class="running-dropdown" id="running-dropdown" style="display:none">
+        <div class="running-chips" id="running-chips"></div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <span class="search-icon">&#9906;</span>
+      <input type="text" id="lab-search" class="search-input" placeholder="Search labs — name, tag, stack…" autocomplete="off" oninput="_applyFilters()">
+      <button class="search-clear" id="search-clear" onclick="_clearSearch()" title="Clear">&#x2715;</button>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">Lang</span>
+        <button class="filter-pill active" data-filter="lang" data-value="" onclick="setFilter(this)">All</button>
+        <button class="filter-pill" data-filter="lang" data-value="Python" onclick="setFilter(this)">Python</button>
+        <button class="filter-pill" data-filter="lang" data-value="PHP" onclick="setFilter(this)">PHP</button>
+        <button class="filter-pill" data-filter="lang" data-value="Java" onclick="setFilter(this)">Java</button>
+        <button class="filter-pill" data-filter="lang" data-value="Node.js" onclick="setFilter(this)">Node.js</button>
+        <button class="filter-pill" data-filter="lang" data-value=".NET" onclick="setFilter(this)">.NET</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Level</span>
+        <button class="filter-pill active" data-filter="level" data-value="" onclick="setFilter(this)">All</button>
+        <button class="filter-pill" data-filter="level" data-value="0" onclick="setFilter(this)">L0</button>
+        <button class="filter-pill" data-filter="level" data-value="1" onclick="setFilter(this)">L1</button>
+        <button class="filter-pill" data-filter="level" data-value="2" onclick="setFilter(this)">L2</button>
+        <button class="filter-pill" data-filter="level" data-value="3" onclick="setFilter(this)">L3</button>
+        <button class="filter-pill" data-filter="level" data-value="4" onclick="setFilter(this)">L4</button>
+        <button class="filter-pill" data-filter="level" data-value="5" onclick="setFilter(this)">L5</button>
+      </div>
+      {% if categories | length > 1 %}
+      <div class="filter-group">
+        <span class="filter-label">Category</span>
+        <button class="filter-pill active" data-filter="category" data-value="" onclick="setFilter(this)">All</button>
+        {% for cat in categories %}
+        <button class="filter-pill" data-filter="category" data-value="{{ cat }}" onclick="setFilter(this)">{{ cat }}</button>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="filter-group filter-group-right">
+        <button class="filter-toggle" id="show-course-btn" onclick="toggleShowCourse()">★ Course</button>
+        <button class="filter-toggle" id="hide-completed-btn" onclick="toggleHideCompleted()">Hide completed</button>
+        <div class="view-toggle-group">
+          <button class="view-btn active" id="view-list-btn" title="List view" onclick="setView('list')">&#9776;</button>
+          <button class="view-btn" id="view-grid-btn" title="Grid view" onclick="setView('grid')">&#9632;&#9632;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lab list -->
+    <div class="lab-list" id="lab-grid">
+      {% for lab in labs %}
+      {% set status = statuses[lab.id] %}
+      <div class="lab-card {% if status == 'running' %}running{% elif status == 'absent' %}absent{% else %}stopped{% endif %}"
+           data-lab-id="{{ lab.id }}"
+           data-port="{{ lab.port }}"
+           data-lang="{{ lab.lang }}"
+           data-level="{{ lab.level }}"
+           data-category="{{ lab.category | default('oswe-prep') }}"
+           data-desc="{{ lab.description | e }}"
+           data-tags="{{ lab.tags | join(',') | e }}"
+           data-name="{{ lab.name | e }}"
+           data-course="{{ 'true' if lab.get('course_based') else 'false' }}">
+
+        <!-- Main row -->
+        <div class="row-main">
+
+          <div class="row-status">
+            <div class="status-dot {% if status == 'running' %}dot-running{% else %}dot-off{% endif %}"
+                 id="dot-{{ lab.id }}"></div>
+          </div>
+
+          <div class="row-badges">
+            <span class="level-badge">L{{ lab.level }}</span>
+            <span class="lang-badge">{{ lab.lang }}</span>
+            {% if lab.get('course_based') %}<span class="course-badge" title="Course module">★</span>{% endif %}
+            <span class="build-badge {{ 'built' if statuses[lab.id] != 'absent' else 'unbuilt' }}"
+                  id="build-badge-{{ lab.id }}">
+              {{- 'built' if statuses[lab.id] != 'absent' else 'not built' -}}
+            </span>
+          </div>
+
+          <div class="row-identity">
+            <div class="row-title">
+              <span class="lab-name">{{ lab.name }}</span>
+              <span class="lab-stack">{{ lab.stack }}</span>
+            </div>
+          </div>
+
+          <div class="row-actions">
+            <div class="btn-group">
+              <button class="btn btn-start" onclick="labAction('{{ lab.id }}', 'start')"
+                      {% if status == 'running' %}disabled{% endif %}>Start</button>
+              <button class="btn btn-stop" onclick="labAction('{{ lab.id }}', 'stop')"
+                      {% if status != 'running' %}disabled{% endif %}>Stop</button>
+              <button class="btn btn-reset" onclick="labAction('{{ lab.id }}', 'reset')">Reset</button>
+              <button class="btn btn-rebuild" onclick="labAction('{{ lab.id }}', 'rebuild')">Rebuild</button>
+            </div>
+
+            <a class="btn btn-open {% if status != 'running' %}disabled{% endif %}"
+               id="open-{{ lab.id }}"
+               {% if status == 'running' %}href="http://{{ host }}:{{ lab.port }}"{% endif %}
+               target="_blank">Open &#8594;</a>
+
+            <button class="btn btn-expand" id="expand-{{ lab.id }}"
+                    onclick="toggleExpand('{{ lab.id }}')" title="More">&#8942;</button>
+          </div>
+
+        </div><!-- /row-main -->
+
+        <!-- Expanded action tray -->
+        <div class="row-expand" id="expand-tray-{{ lab.id }}">
+          <div class="expand-group">
+            <button class="btn btn-tray btn-tray-util" onclick="labAction('{{ lab.id }}', 'rebuild')">⟳ Rebuild</button>
+            <button class="btn btn-tray btn-tray-util" onclick="downloadSource(event, '{{ lab.id }}')">⬇ Source</button>
+            <button class="btn btn-tray btn-tray-util" id="copy-{{ lab.id }}" onclick="copyLink('{{ lab.id }}')">⧉ Copy link</button>
+            <button class="btn btn-tray btn-tray-util" onclick="toggleLogs('{{ lab.id }}')">
+              <span class="log-toggle-icon" id="log-icon-{{ lab.id }}">▶</span>
+              Logs <span class="log-badge" id="log-badge-{{ lab.id }}"></span>
+            </button>
+            <button class="btn btn-tray btn-tray-danger" onclick="deleteLab('{{ lab.id }}')">✕ Delete</button>
+          </div>
+          <div class="expand-sep"></div>
+          <div class="expand-group">
+            <button class="btn btn-tray btn-tray-desc" onclick="showDesc('{{ lab.id }}')">☰ Desc</button>
+            <button class="btn btn-tray btn-tray-hint1" onclick="revealHint('{{ lab.id }}', 1)">◈ Hint 1</button>
+            <button class="btn btn-tray btn-tray-hint2" onclick="revealHint('{{ lab.id }}', 2)">⚠ Hint 2</button>
+          </div>
+          <div class="expand-sep"></div>
+          <div class="expand-group expand-group-flag">
+            <input type="text" class="flag-input" id="flag-{{ lab.id }}"
+                   placeholder="ARENA{...}" autocomplete="off"
+                   onkeydown="if(event.key==='Enter')submitFlag('{{ lab.id }}')">
+            <button class="btn btn-flag" onclick="submitFlag('{{ lab.id }}')">Verify</button>
+            <span class="flag-result" id="flag-result-{{ lab.id }}"></span>
+          </div>
+        </div>
+
+        <!-- Log drawer spans full width below the row -->
+        <div class="log-drawer" id="log-drawer-{{ lab.id }}">
+          <div class="log-toolbar">
+            <div class="log-tabs" id="log-tabs-{{ lab.id }}">
+              <button class="log-tab active" id="log-tab-app-{{ lab.id }}"
+                      onclick="switchLogTab('{{ lab.id }}', 'app')">App</button>
+              <button class="log-tab" id="log-tab-db-{{ lab.id }}"
+                      onclick="switchLogTab('{{ lab.id }}', 'db')"
+                      style="display:none">DB</button>
+            </div>
+            <div class="log-toolbar-tools">
+              <button class="log-btn" onclick="clearLogs('{{ lab.id }}')">Clear</button>
+              <button class="log-btn" onclick="scrollToBottom('{{ lab.id }}')">&#8595; Bottom</button>
+              <label class="log-autoscroll-label">
+                <input type="checkbox" id="log-autoscroll-{{ lab.id }}" checked> autoscroll
+              </label>
+            </div>
+          </div>
+          <pre class="log-output" id="log-output-{{ lab.id }}"></pre>
+          <pre class="log-output" id="log-output-db-{{ lab.id }}" style="display:none"></pre>
+        </div>
+
+      </div><!-- /lab-card -->
+      {% endfor %}
+    </div><!-- /lab-list -->
+  </main>
+
+  <div id="hint-modal" class="hint-modal-overlay" onclick="closeHintModal()" style="display:none">
+    <div class="hint-modal-box" onclick="event.stopPropagation()">
+      <div class="hint-modal-header">
+        <span id="hint-modal-label"></span>
+        <button class="hint-modal-close" onclick="closeHintModal()">&#10005;</button>
+      </div>
+      <p id="hint-modal-text"></p>
+      <div id="hint-modal-tags"></div>
+    </div>
+  </div>
+
+  <script>
+    window.ARENA_HOST = "{{ host }}";
+
+    // Apply view before paint to prevent flicker
+    (function() {
+      if (localStorage.getItem('arena_view') === 'grid') {
+        const g = document.getElementById('lab-grid');
+        if (g) g.classList.add('view-grid');
+      }
+    })();
+
+    // Filters
+    const _filters = { lang: '', level: '', category: '' };
+    let _hideCompleted = localStorage.getItem('arena_hide_completed') === 'on';
+    let _showCourseOnly = localStorage.getItem('arena_show_course') === 'on';
+
+    function toggleShowCourse() {
+      _showCourseOnly = !_showCourseOnly;
+      localStorage.setItem('arena_show_course', _showCourseOnly ? 'on' : 'off');
+      document.getElementById('show-course-btn').classList.toggle('active', _showCourseOnly);
+      _applyFilters();
+    }
+
+    function _getCompleted() {
+      try { return new Set(JSON.parse(localStorage.getItem('arena_completed') || '[]')); }
+      catch(_) { return new Set(); }
+    }
+
+    function setFilter(pill) {
+      const dim = pill.dataset.filter;
+      const val = pill.dataset.value;
+      _filters[dim] = val;
+      pill.closest('.filter-group').querySelectorAll('.filter-pill').forEach(p => {
+        p.classList.toggle('active', p === pill);
+      });
+      _applyFilters();
+    }
+
+    function toggleHideCompleted() {
+      _hideCompleted = !_hideCompleted;
+      localStorage.setItem('arena_hide_completed', _hideCompleted ? 'on' : 'off');
+      document.getElementById('hide-completed-btn').classList.toggle('active', _hideCompleted);
+      _applyFilters();
+      _updateProgress();
+    }
+
+    function _applyFilters() {
+      const completed = _getCompleted();
+      const raw = (document.getElementById('lab-search')?.value || '').trim();
+      const q   = raw.toLowerCase();
+
+      // toggle clear button + bar state
+      const bar = document.querySelector('.search-bar');
+      if (bar) bar.classList.toggle('has-query', raw.length > 0);
+
+      document.querySelectorAll('.lab-card').forEach(card => {
+        const lang  = card.dataset.lang  || '';
+        const level = card.dataset.level || '';
+        const id    = card.dataset.labId || '';
+
+        const category = card.dataset.category || '';
+        const langOk     = !_filters.lang     || lang     === _filters.lang;
+        const levelOk    = !_filters.level    || level    === _filters.level;
+        const categoryOk = !_filters.category || category === _filters.category;
+        const isCourse = card.dataset.course === 'true';
+        const hidden   = (_hideCompleted && completed.has(id)) || (_showCourseOnly && !isCourse);
+
+        let searchOk = true;
+        if (q) {
+          // search across name, stack, tags, description
+          const name  = card.querySelector('.lab-name')?.textContent  || '';
+          const stack = card.querySelector('.lab-stack')?.textContent || '';
+          const desc  = card.querySelector('.lab-desc')?.textContent  || '';
+          const tags  = [...card.querySelectorAll('.tag')].map(t => t.textContent).join(' ');
+          const haystack = [name, lang, stack, desc, tags].join(' ').toLowerCase();
+          searchOk = haystack.includes(q);
+        }
+
+        card.style.display = (langOk && levelOk && categoryOk && searchOk && !hidden) ? '' : 'none';
+      });
+    }
+
+    function _clearSearch() {
+      const inp = document.getElementById('lab-search');
+      if (inp) { inp.value = ''; inp.focus(); }
+      _applyFilters();
+    }
+
+    // View toggle (list / grid)
+    let _view = localStorage.getItem('arena_view') || 'list';
+
+    function setView(v) {
+      _view = v;
+      localStorage.setItem('arena_view', v);
+      const grid = document.getElementById('lab-grid');
+      grid.classList.toggle('view-grid', v === 'grid');
+      document.getElementById('view-list-btn').classList.toggle('active', v === 'list');
+      document.getElementById('view-grid-btn').classList.toggle('active', v === 'grid');
+    }
+
+    // Init after DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('hide-completed-btn').classList.toggle('active', _hideCompleted);
+      document.getElementById('show-course-btn').classList.toggle('active', _showCourseOnly);
+      _applyFilters();
+      _updateProgress();
+      _updateRunningTray();
+      setView(_view);
+    });
+
+    function _updateProgress() {
+      const completed = _getCompleted();
+      const totals = {};
+      const dones = {};
+      document.querySelectorAll('.lab-card').forEach(card => {
+        const lvl = card.dataset.level || '1';
+        totals[lvl] = (totals[lvl] || 0) + 1;
+        if (completed.has(card.dataset.labId)) dones[lvl] = (dones[lvl] || 0) + 1;
+      });
+      [1,2,3,4,5].forEach(l => {
+        const t = totals[l] || 0;
+        const d = dones[l] || 0;
+        const pct = t ? Math.round(d/t*100) : 0;
+        const fill = document.getElementById('pfill-'+l);
+        const count = document.getElementById('pcount-'+l);
+        const row = document.getElementById('progress-row-L'+l);
+        if (fill) fill.style.width = pct + '%';
+        if (count) count.textContent = d + ' / ' + t;
+        if (row) row.style.display = t === 0 ? 'none' : '';
+      });
+    }
+
+    function _updateRunningTray() {
+      const chips = document.getElementById('running-chips');
+      const tray = document.getElementById('running-tray');
+      const countEl = document.getElementById('running-tray-count');
+      if (!chips || !tray) return;
+      chips.innerHTML = '';
+      const running = [];
+      document.querySelectorAll('.lab-card.running').forEach(card => {
+        const name = card.querySelector('.lab-name')?.textContent || card.dataset.labId;
+        const id = card.dataset.labId;
+        const port = card.dataset.port;
+        running.push({id, name, port});
+      });
+      if (running.length === 0) {
+        tray.style.display = 'none';
+        document.getElementById('running-dropdown').style.display = 'none';
+        return;
+      }
+      tray.style.display = '';
+      if (countEl) countEl.textContent = '(' + running.length + ')';
+      running.forEach(lab => {
+        const row = document.createElement('div');
+        row.className = 'running-chip';
+        row.innerHTML = '<a href="http://' + window.ARENA_HOST + ':' + lab.port + '" target="_blank" class="running-chip-link">' + lab.name + ' <span class="running-chip-port">:' + lab.port + '</span></a>' +
+          '<button class="running-chip-stop" onclick="labAction(\'' + lab.id + '\',\'stop\')" title="Stop">&#9632;</button>' +
+          '<button class="running-chip-kill" onclick="labAction(\'' + lab.id + '\',\'delete\')" title="Force kill">&#9249;</button>';
+        chips.appendChild(row);
+      });
+    }
+
+    function _toggleRunningDropdown() {
+      const dd = document.getElementById('running-dropdown');
+      const arrow = document.getElementById('running-tray-arrow');
+      const open = dd.style.display === 'none';
+      dd.style.display = open ? '' : 'none';
+      if (arrow) arrow.textContent = open ? '▴' : '▾';
+    }
+
+    document.addEventListener('click', e => {
+      const tray = document.getElementById('running-tray');
+      if (tray && !tray.contains(e.target)) {
+        const dd = document.getElementById('running-dropdown');
+        const arrow = document.getElementById('running-tray-arrow');
+        if (dd) dd.style.display = 'none';
+        if (arrow) arrow.textContent = '▾';
+      }
+    });
+  </script>
+  <script src="/static/js/platform.js"></script>
+  <script src="/static/js/logs.js"></script>
+</body>
+</html>

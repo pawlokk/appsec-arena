@@ -1,0 +1,10 @@
+progress/
+worklog/
+.DS_Store
+.vscode/
+CLAUDE.md
+**/.exploit/
+__pycache__/
+*.pyc
+*.pyo
+.env

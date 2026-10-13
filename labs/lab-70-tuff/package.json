@@ -1,0 +1,13 @@
+{
+  "name": "lab-70-tuff",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "ws": "^8.14.2",
+    "pg": "^8.11.3",
+    "bcryptjs": "^2.4.3",
+    "uuid": "^9.0.0"
+  }
+}

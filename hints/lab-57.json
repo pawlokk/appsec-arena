@@ -1,0 +1,4 @@
+{
+  "tier1": "Prototype pollution leading to command injection",
+  "tier2": "app.js merge() lines 93-102 \u2014 recursive merge does not block __proto__ keys; POST to /admin/merge with {\"config\":{\"__proto__\":{\"diagnosticCommand\":\"id\"}}} to pollute Object.prototype.diagnosticCommand, then GET /admin/diagnostic which reads settings.diagnosticCommand via prototype fallback; first forge admin JWT via RS256-to-HS256 alg confusion"
+}

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Usage: ./hint <lab-number> [1|2]
+#   tier 1 — vulnerability class only
+#   tier 2 — location + technique (costs more)
+# Progress logged to progress/hints.jsonl
+
+set -e
+
+LAB="${1:-}"
+TIER="${2:-1}"
+HINTS_DIR="$(dirname "$0")/hints"
+PROGRESS="$(dirname "$0")/progress/hints.jsonl"
+
+if [[ -z "$LAB" ]]; then
+    echo "usage: ./hint <lab-number> [1|2]"
+    echo "       ./hint 13       # tier 1: vulnerability class"
+    echo "       ./hint 13 2     # tier 2: location + technique"
+    exit 1
+fi
+
+# Pad lab number
+LAB_PAD=$(printf "%02d" "$LAB")
+FILE="$HINTS_DIR/lab-${LAB_PAD}.json"
+
+if [[ ! -f "$FILE" ]]; then
+    echo "no hints file for lab $LAB_PAD"
+    exit 1
+fi
+
+HINT=$(python3 -c "
+import json, sys
+d = json.load(open('$FILE'))
+t = int('$TIER')
+if t == 1:
+    print(d['tier1'])
+elif t == 2:
+    print(d['tier2'])
+else:
+    print('tier must be 1 or 2')
+    sys.exit(1)
+")
+
+echo ""
+echo "  [hint tier $TIER / lab $LAB_PAD]"
+echo "  $HINT"
+echo ""
+
+# Log to progress JSONL
+mkdir -p "$(dirname "$PROGRESS")"
+TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "{\"lab\":\"$LAB_PAD\",\"tier\":$TIER,\"ts\":\"$TS\"}" >> "$PROGRESS"

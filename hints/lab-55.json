@@ -1,0 +1,4 @@
+{
+  "tier1": "Blind SQL injection with timing side-channel",
+  "tier2": "app.py search() line 48 \u2014 q is interpolated unsanitized into a PostgreSQL LIKE query; use pg_sleep() in a boolean conditional: inject '; SELECT CASE WHEN (SUBSTRING(password,1,1)='a') THEN pg_sleep(3) ELSE pg_sleep(0) END-- and measure response time to exfiltrate admin credentials char by char; then use COPY TO PROGRAM for RCE"
+}

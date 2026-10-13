@@ -1,0 +1,1 @@
+{"tier1": "XSLT injection server-side transform", "tier2": "User-supplied XSLT stylesheet processed by server; inject xsl:value-of with document() or java extension to read files or execute code."}

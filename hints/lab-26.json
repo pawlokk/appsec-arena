@@ -1,0 +1,1 @@
+{"tier1": "SQL injection file read/write", "tier2": "MySQL query injectable with UNION; use INTO OUTFILE to write a webshell or LOAD_FILE to read sensitive server files."}

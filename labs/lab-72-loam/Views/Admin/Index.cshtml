@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+<h1>Admin Panel</h1>
+<p>Welcome, @Context.Session.GetString("Username").</p>
+
+<div class="flag">
+    <strong>FLAG_LOCAL:</strong> @ViewBag.FlagLocal
+</div>
+
+<h2>Tools</h2>
+<ul>
+    <li><a href="/Admin/Import">Data Import Wizard</a> — import serialized configuration payloads</li>
+</ul>

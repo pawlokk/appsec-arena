@@ -1,0 +1,27 @@
+// TokenHelper.cs — partial source
+// TokenHelper.dll compiled from this source
+// Last updated: 2023-11-14 by build pipeline
+
+namespace Loam.Helpers;
+
+public static class TokenHelper
+{
+    /// <summary>
+    /// Generate a unique session invite token.
+    /// Uses Guid.NewGuid() for cryptographic uniqueness.
+    /// </summary>
+    public static string GenerateInviteToken()
+    {
+        // Generates a cryptographically random token
+        return Guid.NewGuid().ToString("N");
+    }
+
+    /// <summary>
+    /// Generate a password reset token.
+    /// </summary>
+    public static string GenerateResetToken(string username)
+    {
+        var token = Guid.NewGuid().ToString("N");
+        return token;
+    }
+}

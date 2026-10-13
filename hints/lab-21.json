@@ -1,0 +1,4 @@
+{
+  "tier1": "Race condition on gift code redemption",
+  "tier2": "index.php case redeem (~line 92-100) \u2014 the balance credit and the redeemed=1 mark are two separate DB writes with a 200ms sleep between them; send concurrent POST /index.php?action=redeem requests with the same code to credit the balance multiple times before it is marked used"
+}

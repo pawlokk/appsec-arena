@@ -1,0 +1,1 @@
+{"tier1": "Python web application vulnerability", "tier2": "Review Python source for dangerous built-in usage, unsanitized user input passed to sensitive functions."}

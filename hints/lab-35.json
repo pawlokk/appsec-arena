@@ -1,0 +1,1 @@
+{"tier1": "PostgreSQL superuser RCE", "tier2": "Database runs as superuser; reach COPY FROM PROGRAM via injectable query or direct access to execute OS commands."}

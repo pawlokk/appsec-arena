@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "appsec-arena",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["platform/app.py"],
+      "port": 8080
+    }
+  ]
+}

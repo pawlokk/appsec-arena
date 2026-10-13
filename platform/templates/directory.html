@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab Directory — AppSec Arena</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/css/platform.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">AppSec Arena</span>
+        <span class="logo-bracket">]</span>
+      </div>
+      <nav class="header-nav">
+        <a href="/" class="nav-link">Labs</a>
+        <a href="/directory" class="nav-link active">Directory</a>
+        <span class="nav-tag">local instance</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <h1>Lab Directory</h1>
+      <p class="hero-sub">Exploit chains mapped across every lab</p>
+    </section>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">Lang</span>
+        <button class="filter-pill active" data-filter="lang" data-value="" onclick="setFilter(this)">All</button>
+        <button class="filter-pill" data-filter="lang" data-value="Python" onclick="setFilter(this)">Python</button>
+        <button class="filter-pill" data-filter="lang" data-value="PHP" onclick="setFilter(this)">PHP</button>
+        <button class="filter-pill" data-filter="lang" data-value="Java" onclick="setFilter(this)">Java</button>
+        <button class="filter-pill" data-filter="lang" data-value="Node.js" onclick="setFilter(this)">Node.js</button>
+        <button class="filter-pill" data-filter="lang" data-value=".NET" onclick="setFilter(this)">.NET</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Level</span>
+        <button class="filter-pill active" data-filter="level" data-value="" onclick="setFilter(this)">All</button>
+        <button class="filter-pill" data-filter="level" data-value="0" onclick="setFilter(this)">L0</button>
+        <button class="filter-pill" data-filter="level" data-value="1" onclick="setFilter(this)">L1</button>
+        <button class="filter-pill" data-filter="level" data-value="2" onclick="setFilter(this)">L2</button>
+      </div>
+    </div>
+
+    <!-- Directory grid -->
+    <div class="directory-grid" id="dir-grid">
+      {% for lab in labs %}
+      <div class="dir-card"
+           data-lang="{{ lab.lang }}"
+           data-level="{{ lab.level }}">
+
+        <div class="dir-card-header">
+          <span class="dir-id">{{ lab.id }}</span>
+          <span class="level-badge">L{{ lab.level }}</span>
+          <span class="lang-badge">{{ lab.lang }}</span>
+        </div>
+
+        <div class="dir-name">{{ lab.name }}</div>
+        <div class="dir-stack">{{ lab.stack }}</div>
+
+        <!-- Chain visualization -->
+        <div class="chain-viz">
+          {% for tag in lab.tags %}
+          {% if not loop.first %}<span class="chain-arrow">→</span>{% endif %}
+          {% set tl = tag | lower %}
+          {% if 'auth' in tl or 'bypass' in tl or 'jwt' in tl or 'cookie' in tl or 'oauth' in tl or 'session' in tl or 'privilege' in tl or 'account' in tl or 'token' in tl or 'takeover' in tl or 'idor' in tl or 'bola' in tl or 'pollution' in tl or 'juggling' in tl or 'mass' in tl or 'host header' in tl or 'open redirect' in tl or 'password' in tl or 'predictable' in tl or 'second-order' in tl or 'race' in tl %}
+            {% set cls = 'class-auth' %}
+          {% elif 'rce' in tl or 'exec' in tl or 'command' in tl or 'deseriali' in tl or 'pickle' in tl or 'yaml' in tl or 'webshell' in tl or 'log poison' in tl or 'magic' in tl or 'object inject' in tl or 'spel' in tl %}
+            {% set cls = 'class-rce' %}
+          {% elif 'read' in tl or 'leak' in tl or 'file read' in tl or 'info' in tl or 'exfil' in tl or 'lfi' in tl or 'traversal' in tl or 'introspect' in tl %}
+            {% set cls = 'class-leak' %}
+          {% elif 'sqli' in tl or 'xss' in tl or 'ssti' in tl or 'xxe' in tl or 'ssrf' in tl or 'nosqli' in tl or 'inject' in tl or 'stacked' in tl %}
+            {% set cls = 'class-inject' %}
+          {% else %}
+            {% set cls = 'class-other' %}
+          {% endif %}
+          <span class="chain-step {{ cls }}">{{ tag }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="dir-desc">{{ lab.description }}</div>
+
+        <a href="/#lab-{{ lab.id }}" class="dir-start-btn">Start Lab →</a>
+
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+  <script>
+    const _filters = { lang: '', level: '' };
+
+    function setFilter(pill) {
+      const dim = pill.dataset.filter;
+      const val = pill.dataset.value;
+      _filters[dim] = val;
+      pill.closest('.filter-group').querySelectorAll('.filter-pill').forEach(p => {
+        p.classList.toggle('active', p === pill);
+      });
+      _applyFilters();
+    }
+
+    function _applyFilters() {
+      document.querySelectorAll('.dir-card').forEach(card => {
+        const lang  = card.dataset.lang  || '';
+        const level = card.dataset.level || '';
+        const langOk  = !_filters.lang  || lang  === _filters.lang;
+        const levelOk = !_filters.level || level === _filters.level;
+        card.style.display = (langOk && levelOk) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

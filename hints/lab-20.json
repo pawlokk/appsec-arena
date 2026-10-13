@@ -1,0 +1,4 @@
+{
+  "tier1": "JWT algorithm confusion",
+  "tier2": "app.js requireAuth() \u2014 jwt.verify uses the server's own RSA public key as the HMAC secret; forge a HS256 token signed with the PEM-encoded public key (fetch it from /.well-known/jwks.json, reconstruct PEM, sign locally with role:admin)"
+}

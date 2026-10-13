@@ -1,0 +1,4 @@
+{
+  "tier1": "Predictable password reset token (weak PRNG)",
+  "tier2": "App.java ResetRequestServlet.doPost() line 181-183 \u2014 token is new Random(System.currentTimeMillis()).nextInt(999999); record the server response Date header, brute-force seeds in a \u00b12-second window around it, derive the matching 6-digit token, then POST /reset/verify"
+}

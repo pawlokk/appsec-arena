@@ -1,0 +1,1 @@
+{"tier1": ".NET web application vulnerability", "tier2": "Review .NET source for unsafe deserialization, SQL string concatenation, or improper input validation in controllers."}

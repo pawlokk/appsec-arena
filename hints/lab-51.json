@@ -1,0 +1,1 @@
+{"tier1": "PHP POP chain deserialization", "tier2": "unserialize() on user input; trace magic method chain (__destruct, __toString, __call) across classes to reach file write or exec."}

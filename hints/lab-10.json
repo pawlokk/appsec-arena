@@ -1,0 +1,1 @@
+{"tier1": "Server-side template injection", "tier2": "Twig renders a template string built from user input; locate the render() call and inject Twig expression syntax."}

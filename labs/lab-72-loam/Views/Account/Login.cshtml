@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login — Loam Intranet</title>
+<style>
+body { font-family: monospace; background: #0d0f14; color: #d4d8e8; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+.box { background: #1a1e2a; border: 1px solid #2a3050; border-radius: 8px; padding: 2rem; width: 320px; }
+h1 { color: #5c8aff; margin-top: 0; }
+label { display: block; margin-top: 1rem; color: #8fb3ff; }
+input[type=text], input[type=password] { width: 100%; background: #0d0f14; border: 1px solid #2a3050; color: #d4d8e8; padding: 0.5rem; border-radius: 4px; font-family: monospace; box-sizing: border-box; margin-top: 0.25rem; }
+input[type=submit] { margin-top: 1.5rem; width: 100%; background: #5c8aff; border: none; color: #0d0f14; padding: 0.6rem; border-radius: 4px; cursor: pointer; font-family: monospace; font-weight: bold; }
+.error { background: #3a1a1a; border: 1px solid #7a2a2a; padding: 0.5rem 0.75rem; border-radius: 4px; color: #ff8888; margin-top: 1rem; }
+.hint { color: #666; font-size: 0.85em; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="box">
+    <h1>Loam Intranet</h1>
+    <form method="post">
+        <label>Username</label>
+        <input type="text" name="username" autocomplete="username">
+        <label>Password</label>
+        <input type="password" name="password" autocomplete="current-password">
+        <input type="submit" value="Login">
+    </form>
+    @if (ViewBag.Error != null)
+    {
+        <div class="error">@ViewBag.Error</div>
+    }
+    <p class="hint">Test accounts: alice / password &nbsp;|&nbsp; bob / password123</p>
+</div>
+</body>
+</html>

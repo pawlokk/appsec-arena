@@ -1,0 +1,12 @@
+<users>
+  <user>
+    <username>admin</username>
+    <password>ADMIN_PASSWORD_PLACEHOLDER</password>
+    <role>admin</role>
+  </user>
+  <user>
+    <username>guest</username>
+    <password>guest</password>
+    <role>user</role>
+  </user>
+</users>

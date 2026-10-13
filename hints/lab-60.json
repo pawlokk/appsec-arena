@@ -1,0 +1,4 @@
+{
+  "tier1": "Second-order SQL injection via stored username",
+  "tier2": "app.py profile() lines 262-263 \u2014 after login, the username retrieved from the DB is concatenated directly into an ORDER BY query for orders; register with a SQLi username (e.g. admin' UNION SELECT ...) so the injection fires when profile page loads; alternatively reach admin_report() at line 317 which has the same unsanitized sink, then COPY TO PROGRAM for RCE"
+}

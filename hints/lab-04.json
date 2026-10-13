@@ -1,0 +1,1 @@
+{"tier1": "NoSQL injection authentication bypass", "tier2": "Login endpoint passes JSON body directly to MongoDB query; inject operator keys to bypass password comparison."}

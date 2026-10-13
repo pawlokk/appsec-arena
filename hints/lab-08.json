@@ -1,0 +1,1 @@
+{"tier1": "XML external entity injection", "tier2": "SAX or DOM parser processes user-supplied XML without disabling external entity resolution; inject DOCTYPE with SYSTEM entity."}

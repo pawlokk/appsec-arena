@@ -1,0 +1,1 @@
+{"tier1": "Python pickle deserialization RCE", "tier2": "User-controlled data passed to pickle.loads(); craft a pickle payload with __reduce__ returning an os.system call."}

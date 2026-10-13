@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  lab-34:
+    build: .
+    ports:
+      - "5034:5000"
+    environment:
+      - FLAG_LOCAL=ARENA{CHANGE_ME_LOCAL}
+      - FLAG_PROOF=ARENA{CHANGE_ME_PROOF}

@@ -1,0 +1,4 @@
+{
+  "tier1": "PHP eval with incomplete blocklist bypass",
+  "tier2": "src/admin/index.php line 29 \u2014 eval($expr) blocks listed function names via stripos but not all alternatives; use backtick execution (echo `cat /flag_local.txt`;) or variable function names ($f=\"system\";$f(\"id\");) to bypass the keyword list"
+}

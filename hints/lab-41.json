@@ -1,0 +1,1 @@
+{"tier1": "FreeMarker server-side template injection", "tier2": "User input rendered inside a FreeMarker template; use freemarker.template.utility.Execute or ?new() to invoke Java code."}

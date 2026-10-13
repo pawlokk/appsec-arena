@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache-datasource>
+    <url>jdbc:h2:tcp://127.0.0.1:9001/./seam_cache</url>
+    <username>sa</username>
+    <password>manager99</password>
+    <pool-size>5</pool-size>
+</cache-datasource>

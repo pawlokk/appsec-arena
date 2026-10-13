@@ -1,0 +1,1 @@
+{"tier1": "Log poisoning to RCE via LFI", "tier2": "User-Agent or input written to log file; include log via LFI path parameter to execute injected PHP code."}

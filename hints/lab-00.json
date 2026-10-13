@@ -1,0 +1,1 @@
+{"tier1": "Hardcoded credentials", "tier2": "Check the source — credentials are hardcoded in the login handler. After login, the command executor is directly accessible and passes user input to shell_exec()."}

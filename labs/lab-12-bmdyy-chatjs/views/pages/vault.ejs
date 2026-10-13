@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body>
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+        <main style="max-width:700px;margin:40px auto;padding:0 20px;">
+            <div style="background:#1e1e2e;border-radius:8px;padding:30px;color:#cdd6f4;">
+                <h3 style="color:#89b4fa;margin-top:0;">&#128273; User Vault</h3>
+                <p style="color:#a6adc8;font-size:14px;">Authenticated access confirmed. Welcome, <strong><%= session.username %></strong>.</p>
+                <div style="background:#181825;border-radius:6px;padding:16px;margin-top:20px;">
+                    <p style="color:#6c7086;font-size:12px;margin:0 0 8px;">ACCESS TOKEN</p>
+                    <code style="font-family:monospace;font-size:15px;color:#a6e3a1;word-break:break-all;"><%= flag %></code>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>
+    </body>
+</html>

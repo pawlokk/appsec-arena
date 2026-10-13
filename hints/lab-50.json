@@ -1,0 +1,1 @@
+{"tier1": "Server-side include injection", "tier2": "User input written to a file or response processed by SSI-enabled web server; inject <!--#exec cmd= --> directive."}

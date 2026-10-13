@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Chips</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #111; color: #e0e0e0; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #1e1e1e; border: 1px solid #333; border-radius: 6px; padding: 32px; width: 400px; }
+    h1 { margin: 0 0 8px; font-size: 22px; color: #fff; }
+    .subtitle { color: #888; font-size: 13px; margin-bottom: 24px; }
+    label { display: block; margin-bottom: 14px; font-size: 13px; color: #aaa; }
+    label span { display: block; margin-bottom: 4px; }
+    input { width: 100%; background: #2a2a2a; border: 1px solid #444; color: #e0e0e0; padding: 8px 10px; border-radius: 4px; font-family: inherit; font-size: 13px; }
+    input:focus { outline: none; border-color: #666; }
+    button { width: 100%; background: #2d6a4f; border: none; color: #fff; padding: 10px; border-radius: 4px; font-family: inherit; font-size: 14px; cursor: pointer; margin-top: 8px; }
+    button:hover { background: #40916c; }
+    .error { color: #e07070; font-size: 12px; margin-top: 10px; display: none; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Chips</h1>
+  <p class="subtitle">Web-based Remote Desktop Gateway</p>
+  <form id="form">
+    <label><span>Hostname</span><input id="hostname" placeholder="192.168.1.100" value="192.168.1.100"></label>
+    <label><span>Port</span><input id="port" placeholder="3389" value="3389"></label>
+    <label><span>Username</span><input id="username" placeholder="administrator"></label>
+    <label><span>Password</span><input id="password" type="password" placeholder="password"></label>
+    <label><span>Domain (optional)</span><input id="domain" placeholder="WORKGROUP"></label>
+    <button type="submit">Connect</button>
+    <div class="error" id="err"></div>
+  </form>
+</div>
+<script>
+document.getElementById('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var err = document.getElementById('err');
+  err.style.display = 'none';
+  try {
+    var resp = await fetch('/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        connection: {
+          type: 'rdp',
+          settings: {
+            hostname: document.getElementById('hostname').value,
+            port: document.getElementById('port').value,
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+            domain: document.getElementById('domain').value,
+            'ignore-cert': 'true'
+          }
+        }
+      })
+    });
+    var data = await resp.json();
+    if (data.token) {
+      window.location.href = '/rdp?token=' + encodeURIComponent(data.token);
+    } else {
+      err.textContent = data.error || 'Failed to generate token';
+      err.style.display = 'block';
+    }
+  } catch(ex) {
+    err.textContent = 'Request failed: ' + ex.message;
+    err.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+  "tier1": "Registration accepts JSON — what happens if you include extra fields the server doesn't expect? Also, look carefully at what validates the report filter parameter versus what the controller actually binds.",
+  "tier2": "Mass assignment: POST /api/register with 'role':'admin' in the JSON body. Blind SQLi: the category param has no real validation — use pg_sleep timing oracle. Admin RCE: the export endpoint blocks DROP/DELETE but what about CREATE FUNCTION or COPY TO PROGRAM? Extra mile: there is a second attack surface at /api/v1/partner/state-restore that deserializes a raw Java object — no authentication required. What library on the classpath enables a gadget chain?"
+}

@@ -1,0 +1,4 @@
+{
+  "tier1": "The app declares ALLOWED_ORIGINS but never checks it — look at what the CORS middleware actually does with req.headers.origin. The /api/admin/token endpoint is unauthenticated. Try calling it from a sandboxed context (Origin: null). Once you have the admin token, check what the admin dashboard returns.",
+  "tier2": "For RCE path 1: the workspace settings endpoint deep-merges your JSON into an object using a custom merge() function. It blocks 'constructor' but not '__proto__'. Pollute Object.prototype.outputFunctionName with a Node.js command, then trigger a Handlebars render via GET /api/workspace. For RCE path 2: the admin template editor at POST /admin/template accepts raw Handlebars source. The 'Templates are sanitized' warning is a UI label with no backing code. Use the classic Handlebars 4.0.x SSTI payload with string.sub.apply to reach require('child_process')."
+}

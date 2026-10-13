@@ -1,0 +1,13 @@
+# Flint CRM — Apache config backup (pre-migration)
+# This file was the active .htaccess before the server upgrade.
+# DO NOT restore — handler configuration has changed.
+#
+# Old handler assignments (v1.x):
+AddHandler application/x-httpd-php .php .php5 .phtml
+# Note: .php7 was not in use during v1.x era
+
+RewriteEngine On
+RewriteBase /
+
+# Legacy redirect for old upload path
+RewriteRule ^files/(.*)$ uploads/$1 [L,R=301]

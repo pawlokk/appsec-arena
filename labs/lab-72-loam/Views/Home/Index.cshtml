@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Home";
+}
+<h1>Welcome to Loam Intranet</h1>
+<p>Internal portal for staff. Use the navigation above to access features.</p>
+<h2>Quick Links</h2>
+<ul>
+    <li><a href="/Users/Search">User Search</a> — search the employee directory</li>
+    <li><a href="/Users/Directory">Directory</a> — browse all staff</li>
+    <li><a href="/Tools/Preview">Link Preview</a> — check URLs and preview pages</li>
+    @if (Context.Session.GetString("Role") == "admin")
+    {
+        <li><a href="/Admin">Admin Panel</a> — administration and configuration</li>
+    }
+</ul>

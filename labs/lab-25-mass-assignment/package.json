@@ -1,0 +1,17 @@
+{
+  "name": "lab-25-mass-assignment",
+  "version": "1.0.0",
+  "description": "AppSec Arena - Mass Assignment lab",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "tier1": "Unsigned token forgery and second-order server-side template injection",
+  "tier2": "app.py read_token() line ~63 — token is base64url-encoded JSON with no signature; decode, set role to 'admin', re-encode, register. FLAG_LOCAL on /admin. app.py new_project() line ~226 stores report_template unsanitized. app.py admin_report() line ~352 calls render_template_string(proj['report_template'], ...) — inject Jinja2 payload there for RCE and FLAG_PROOF."
+}

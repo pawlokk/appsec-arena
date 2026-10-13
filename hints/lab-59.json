@@ -1,0 +1,4 @@
+{
+  "tier1": "NoSQL injection chained with internal service SSRF",
+  "tier2": "app.js POST /api/search line 58 \u2014 filter object passed directly to nedb db.find() without sanitization; inject {\"filter\":{\"tag\":\"internal\"}} to leak the INTERNAL_API_KEY from the database; use the key to authenticate a request to the internal Java service via POST /api/webhook/test, then submit a ysoserial CommonsCollections payload to the Java ObjectInputStream endpoint"
+}

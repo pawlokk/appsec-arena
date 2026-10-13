@@ -1,0 +1,1 @@
+{"tier1": "Server-side request forgery", "tier2": "URL parameter fetched server-side without allowlist; chain SSRF to reach internal service or metadata endpoint."}

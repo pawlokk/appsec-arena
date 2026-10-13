@@ -1,0 +1,1 @@
+{"tier1": "PHP web application vulnerability", "tier2": "Audit PHP source for direct user-input usage in dangerous functions or database queries without parameterization."}

@@ -1,0 +1,4 @@
+{
+  "tier1": "Server-side template injection with dunder blocklist bypass",
+  "tier2": "app.py preview() line 206 \u2014 render_template_string() is called after a denylist that blocks __, class, mro; bypass using the attr() filter with string concatenation: {{request|attr(\"application\")|attr((\"_\"*2)~\"globals\"~(\"_\"*2))}} to access dunder attributes without typing them literally"
+}

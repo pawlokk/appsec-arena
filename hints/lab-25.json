@@ -1,0 +1,1 @@
+{"tier1": "Mass assignment parameter binding", "tier2": "Framework binds all request parameters to model object; submit hidden privileged fields like role or isAdmin to escalate."}

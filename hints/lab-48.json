@@ -1,0 +1,1 @@
+{"tier1": "ImageMagick delegate rule RCE", "tier2": "Server passes user-supplied filename to ImageMagick; exploit delegate rules or MVG/MSL format to execute OS commands."}

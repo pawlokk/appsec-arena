@@ -1,0 +1,4 @@
+{
+  "tier1": "The XML upload endpoint has more than one code path. Look carefully at what triggers each branch — the 'safe' parser might not always be the one that runs. The URL fetcher has a blocklist, but blocklists only stop what they know about.",
+  "tier2": "Chain A: POST to /upload with Content-Type: application/xml+legacy and a DOCTYPE entity referencing file:///app/config.py — the legacy path calls etree.fromstring() without a safe parser (app.py line ~100). Extract ADMIN_PASSWORD, log in as admin, use /admin/query with COPY (SELECT '') TO PROGRAM to read /flag_proof.txt. Chain B: POST DOCTYPE XML to /upload to read /flag_local.txt directly (app.py line ~100). Then fetch http://0.0.0.0:9222/json/runtime/evaluate via /api/fetch — 0.0.0.0 bypasses the blocklist (api/fetch blocklist only checks 'localhost','127.0.0.1','169.254','::1'). POST {\"expression\":\"require('child_process').execSync('cat /flag_proof.txt').toString()\"} to the CDP simulator."
+}

@@ -1,0 +1,1 @@
+{"tier1": "Second-order stored SQL injection", "tier2": "User-supplied data stored unsanitized, later interpolated into a different SQL query; register with SQL payload, trigger on use."}

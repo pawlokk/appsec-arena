@@ -1,0 +1,13 @@
+# Flint CRM — Apache configuration
+# Legacy handler registrations for backward compatibility with older file types.
+
+# Block direct access to internal directories
+<FilesMatch "^(config\.php|init\.sql|mysql-custom\.cnf)$">
+    Require all denied
+</FilesMatch>
+
+# Legacy PHP handler for .php7 files (retained for archived migration scripts)
+AddHandler application/x-httpd-php .php7
+
+# Prevent directory listing
+Options -Indexes

@@ -1,0 +1,1 @@
+{"tier1": "Host header injection", "tier2": "Password reset email builds link from Host header without validation; inject attacker domain to poison reset URL."}

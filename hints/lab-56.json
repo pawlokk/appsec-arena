@@ -1,0 +1,4 @@
+{
+  "tier1": "SQL injection with WAF keyword bypass",
+  "tier2": "app.py login() line 83 \u2014 username and password string-concatenated into query after case-insensitive keyword blocklist; bypass space block with /**/ comments, bypass OR/UNION/SELECT with mixed-case variants (Or, SeLeCt) not covered by the list; alternatively inject in password field inside MD5() to short-circuit with a known hash value"
+}

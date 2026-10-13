@@ -1,0 +1,4 @@
+{
+  "tier1": "Server-side request forgery via HTML-to-PDF renderer",
+  "tier2": "app.py generate_invoice() lines 87-99 \u2014 wkhtmltopdf invoked with --enable-javascript and --no-sandbox on attacker-supplied HTML; embed an XMLHttpRequest in the HTML that calls http://127.0.0.1:8888/admin/info to reach the internal admin app and return FLAG_LOCAL in the rendered PDF"
+}

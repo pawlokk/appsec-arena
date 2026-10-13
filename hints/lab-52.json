@@ -1,0 +1,4 @@
+{
+  "tier1": "Java deserialization remote code execution",
+  "tier2": "App.java ImportServlet.doPost() line 47 \u2014 accepts raw base64, decodes it, passes directly to ObjectInputStream.readObject() with no filtering; use ysoserial at /tools/ysoserial.jar to generate a CommonsCollections gadget chain payload, base64-encode it, POST to /api/import"
+}

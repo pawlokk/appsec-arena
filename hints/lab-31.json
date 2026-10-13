@@ -1,0 +1,4 @@
+{
+  "tier1": "Broken object-level authorization in GraphQL",
+  "tier2": "app.js resolver user() line 132 \u2014 any authenticated user can query user(id: ID!) for any ID; the flag is in the flag field only when the fetched row has role=admin; query user(id:1) to get apiKey, then call runDiagnostic mutation with that apiKey"
+}

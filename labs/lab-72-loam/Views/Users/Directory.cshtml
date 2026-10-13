@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Staff Directory";
+}
+<h1>Staff Directory</h1>
+@if (ViewBag.Users != null)
+{
+    var users = (List<Loam.Models.User>)ViewBag.Users;
+    <table>
+        <thead><tr><th>Username</th><th>Department</th><th>Email</th><th>Role</th></tr></thead>
+        <tbody>
+        @foreach (var u in users)
+        {
+            <tr>
+                <td>@u.Username</td>
+                <td>@u.Department</td>
+                <td>@u.Email</td>
+                <td>@u.Role</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

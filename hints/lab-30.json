@@ -1,0 +1,4 @@
+{
+  "tier1": "SQL injection via JWT kid header",
+  "tier2": "app.js verifyToken() line 35 \u2014 kid is interpolated unsanitized into the query string; inject a kid that closes the WHERE clause and UNION-returns a known secret (e.g. kid = '' UNION SELECT 'mysecret'--'), then sign a new HS256 token with that secret and role:admin"
+}

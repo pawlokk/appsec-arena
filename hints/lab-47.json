@@ -1,0 +1,1 @@
+{"tier1": "LDAP injection authentication bypass", "tier2": "LDAP filter constructed from unsanitized username; inject wildcard or boolean logic to bypass bind authentication check."}

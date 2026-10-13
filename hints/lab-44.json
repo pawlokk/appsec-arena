@@ -1,0 +1,1 @@
+{"tier1": "OGNL injection Java", "tier2": "User input evaluated as OGNL expression in Struts action or tag; inject expression accessing Runtime to execute OS commands."}

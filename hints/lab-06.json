@@ -1,0 +1,1 @@
+{"tier1": "PHP type juggling loose comparison", "tier2": "Comparison uses == instead of ===; supply a value that type-coerces to match the expected secret or hash."}

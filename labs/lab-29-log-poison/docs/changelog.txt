@@ -1,0 +1,11 @@
+Changelog
+=========
+
+v1.0.0 - 2024-01-15
+  - Initial release of DocViewer
+  - Added support for plain text file viewing
+  - Integrated with Apache web server
+
+v0.9.0 - 2023-12-01
+  - Beta release
+  - Basic file reading functionality

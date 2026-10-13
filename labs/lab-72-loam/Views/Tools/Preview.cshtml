@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Link Preview";
+}
+<h1>Link Preview / URL Checker</h1>
+<p>Enter a URL to fetch and preview its contents.</p>
+<form method="post">
+    <input type="text" name="url" value="@ViewBag.Url" placeholder="https://example.com" style="width:400px">
+    <input type="submit" value="Fetch">
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-error">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Content != null)
+{
+    <h2>Response from @ViewBag.Url</h2>
+    <pre>@ViewBag.Content</pre>
+}

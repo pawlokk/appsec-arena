@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Schist Workflow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-card { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 8px; padding: 40px; width: 360px; }
+    h1 { font-size: 1.4rem; margin-bottom: 6px; color: #fff; }
+    p { font-size: 0.85rem; color: #888; margin-bottom: 28px; }
+    label { display: block; font-size: 0.8rem; color: #aaa; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px 12px; background: #0f1117; border: 1px solid #2a2d3a; border-radius: 4px; color: #e0e0e0; font-size: 0.9rem; margin-bottom: 16px; outline: none; }
+    input:focus { border-color: #4a90e2; }
+    button { width: 100%; padding: 10px; background: #4a90e2; color: #fff; border: none; border-radius: 4px; font-size: 0.9rem; cursor: pointer; }
+    button:hover { background: #357abd; }
+    #msg { margin-top: 14px; font-size: 0.8rem; color: #e25555; text-align: center; }
+    .docs-link { text-align: center; margin-top: 18px; font-size: 0.8rem; color: #888; }
+    .docs-link a { color: #4a90e2; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h1>Schist Workflow</h1>
+    <p>Continuous integration and process automation</p>
+    <label>Username</label>
+    <input type="text" id="username" autocomplete="username">
+    <label>Password</label>
+    <input type="password" id="password" autocomplete="current-password">
+    <button onclick="login()">Sign In</button>
+    <div id="msg"></div>
+    <div class="docs-link"><a href="/docs">API Documentation</a></div>
+  </div>
+  <script>
+    async function login() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      const creds = btoa(u + ':' + p);
+      const r = await fetch('/api/service/console/whoami', {
+        method: 'POST',
+        headers: { 'Authorization': 'Basic ' + creds }
+      });
+      if (r.ok) {
+        const d = await r.json();
+        document.getElementById('msg').style.color = '#55c55e';
+        document.getElementById('msg').textContent = 'Logged in as ' + d.username;
+      } else {
+        document.getElementById('msg').style.color = '#e25555';
+        document.getElementById('msg').textContent = 'Invalid credentials';
+      }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  </script>
+</body>
+</html>

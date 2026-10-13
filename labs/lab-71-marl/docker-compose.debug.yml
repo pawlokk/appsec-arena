@@ -1,0 +1,25 @@
+networks:
+  marl-debug:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.71.0/24
+
+services:
+  marl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: debug
+      args:
+        BUILD_CONFIG: Debug
+    ports:
+      - "5171:5000"
+      - "4024:4024"
+    environment:
+      FLAG_LOCAL: "ARENA{debug_local}"
+      FLAG_PROOF: "ARENA{debug_proof}"
+      DB_PATH: /app/marl.db
+      ASPNETCORE_ENVIRONMENT: Development
+    networks:
+      - marl-debug

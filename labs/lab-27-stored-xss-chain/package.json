@@ -1,0 +1,15 @@
+{
+  "name": "lab-27-stored-xss-chain",
+  "version": "1.0.0",
+  "description": "AppSec Arena - Stored XSS Chain Lab",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.4.3",
+    "cookie-parser": "^1.4.6",
+    "uuid": "^9.0.0"
+  }
+}

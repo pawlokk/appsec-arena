@@ -1,0 +1,1 @@
+{"tier1": "XXE via DOCX Office Open XML", "tier2": "Server parses uploaded DOCX ZIP contents with XML parser; embed external entity in word/document.xml or [Content_Types].xml."}

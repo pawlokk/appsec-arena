@@ -1,0 +1,1 @@
+{"tier1": "YAML deserialization remote code execution", "tier2": "PyYAML 5.x yaml.load() called without Loader argument; craft a YAML document with a Python object constructor tag."}

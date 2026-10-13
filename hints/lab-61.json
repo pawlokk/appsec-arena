@@ -1,0 +1,4 @@
+{
+  "tier1": "PHP object deserialization via cookie",
+  "tier2": "includes/profile.php handleProfile() lines 12-15 \u2014 avatar_meta cookie is base64-decoded and passed to unserialize(); Executor class (__toString calls system($this->cmd)) is loaded in scope; craft a serialized Executor with cmd set to a shell command, base64-encode it, set as avatar_meta cookie, then visit /?page=profile to trigger __toString via the unserialize call"
+}

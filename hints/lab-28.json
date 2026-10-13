@@ -1,0 +1,1 @@
+{"tier1": "Insecure direct object reference", "tier2": "Resource endpoint uses user-supplied ID without ownership check; enumerate or modify the ID to access other users' objects."}

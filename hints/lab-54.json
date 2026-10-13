@@ -1,0 +1,1 @@
+{"tier1": "NoSQL regex injection MongoDB", "tier2": "Search or filter parameter mapped to MongoDB $regex operator; inject crafted regex to enumerate data or cause ReDoS."}

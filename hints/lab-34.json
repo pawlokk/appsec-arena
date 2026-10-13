@@ -1,0 +1,1 @@
+{"tier1": "Zip slip path traversal", "tier2": "Server extracts uploaded ZIP without normalizing entry paths; craft entries with ../ sequences to write files outside webroot."}

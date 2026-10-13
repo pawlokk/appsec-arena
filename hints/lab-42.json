@@ -1,0 +1,1 @@
+{"tier1": "Smarty server-side template injection", "tier2": "User input rendered by Smarty engine; inject {php} tags (Smarty 2.x) or {system()} via Smarty modifier to execute PHP."}

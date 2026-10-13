@@ -1,0 +1,4 @@
+{
+  "tier1": "The CRM has three attack surfaces: the password reset flow, the pre-auth XML importer, and the admin customer search. Each has a filter that looks protective but isn't. Two independent chains lead to admin access; admin search leads to RCE.",
+  "tier2": "Bypass 1 — reset.php:57: loose == comparison on reset token; submit token=0 after requesting a reset for an account whose token starts with 0e, or use user_id=1 with your own valid token (IDOR). Bypass 2 — import.php:38: simplexml_load_string() with LIBXML_NOENT|LIBXML_DTDLOAD; XXE reads /var/www/html/config.php for DB creds and admin password hash. RCE — admin.php:20 / search.php:58: POST q= is passed raw into SQL query; UNION SELECT ... INTO OUTFILE '/var/www/html/shell.php' writes a webshell; the preg_match filter in search.php only runs on $_GET['q'], never on the POST path."
+}

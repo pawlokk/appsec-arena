@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "User Search";
+}
+<h1>User Search</h1>
+<form method="get" action="/Users/Search">
+    <input type="text" name="q" value="@ViewBag.Query" placeholder="Search by username..." style="width:300px">
+    <input type="submit" value="Search">
+</form>
+
+@if (ViewBag.Results != null)
+{
+    var results = (List<Loam.Models.User>)ViewBag.Results;
+    <h2>Results (@results.Count)</h2>
+    if (results.Count == 0)
+    {
+        <p>No users found.</p>
+    }
+    else
+    {
+        <table>
+            <thead><tr><th>Username</th><th>Department</th><th>Email</th><th>Role</th></tr></thead>
+            <tbody>
+            @foreach (var u in results)
+            {
+                <tr>
+                    <td>@u.Username</td>
+                    <td>@u.Department</td>
+                    <td>@u.Email</td>
+                    <td>@u.Role</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}

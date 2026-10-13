@@ -1,0 +1,1 @@
+{"tier1": "OAuth misconfiguration", "tier2": "OAuth flow lacks state validation or redirect_uri is loosely matched; abuse implicit flow or open redirect to steal tokens."}

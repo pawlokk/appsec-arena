@@ -1,0 +1,4 @@
+{
+  "tier1": "XML external entity injection",
+  "tier2": "routes/import.php line 16 \u2014 simplexml_load_string() with LIBXML_NOENT | LIBXML_DTDLOAD; login as alice (credentials shown on login page); XXE SSRF http://127.0.0.1:8888/config to get twig_secret \u2014 OOB via hosted .dtd with nested parameter entities, or in-band via general entity in <title>/<content> saved to DB; use twig_secret as key in routes/email.php Twig template preview for SSTI RCE"
+}

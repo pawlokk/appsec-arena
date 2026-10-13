@@ -1,0 +1,4 @@
+{
+    "tier1": "The admin panel is locked, but the password-change endpoint has no CSRF token. Look carefully at the page source — a meta tag claims protection exists. Does it?",
+    "tier2": "Three attack paths: (1) CSRF the admin password change — no token, no SameSite cookie, just POST to /admin/settings.php?action=change_password. (2) Backup restore takes a .zip filename and passes it to unzip with no sanitization — inject shell metacharacters in the filename itself. (3) Set your display name to a SQL payload; when admin views the user report, your stored value is interpolated directly into a query. The HTML maxlength on the profile form is client-side only."
+}

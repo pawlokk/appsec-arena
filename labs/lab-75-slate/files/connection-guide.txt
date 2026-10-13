@@ -1,0 +1,31 @@
+Chips Connection Guide
+======================
+
+CREATING A TOKEN
+----------------
+POST /token with a JSON body describing the connection:
+
+  {
+    "connection": {
+      "type": "rdp",
+      "settings": {
+        "hostname": "your-host",
+        "port": "3389",
+        "username": "your-user",
+        "password": "your-pass",
+        "ignore-cert": "true"
+      }
+    }
+  }
+
+The response contains an encrypted token string.
+
+OPENING A SESSION
+-----------------
+Navigate to /rdp?token=<your-token> in a browser, or connect directly
+via WebSocket at /guaclite?token=<your-token>.
+
+SUPPORTED PARAMETERS
+--------------------
+hostname, port, username, password, domain, ignore-cert, security,
+width, height, color-depth, enable-audio, enable-printing

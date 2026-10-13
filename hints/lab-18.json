@@ -1,0 +1,1 @@
+{"tier1": "PHP object deserialization", "tier2": "User-controlled cookie or parameter passed to unserialize(); find classes with __wakeup or __destruct magic methods for gadgets."}

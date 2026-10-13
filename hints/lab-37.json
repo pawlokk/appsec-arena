@@ -1,0 +1,4 @@
+{
+  "tier1": "eval blocklist bypass via batch endpoint reference chaining",
+  "tier2": "app.js resolveReference() line 117 \u2014 the /batch endpoint resolves $N.field references with eval(\"result.\" + match[3]); pass a batch request where the field path is a crafted expression (e.g. constructor.constructor(\"return process.env\")()) to execute arbitrary code without hitting the forward-slash filter"
+}

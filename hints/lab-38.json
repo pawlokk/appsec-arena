@@ -1,0 +1,4 @@
+{
+  "tier1": "CORS misconfiguration enabling cross-origin credential theft",
+  "tier2": "app.js line 12 \u2014 cors({ origin: true, credentials: true }) reflects any Origin with Allow-Credentials; the session cookie is httpOnly:false and sameSite:false; make a cross-origin fetch with credentials:include to /api/config or forge a credentialed POST to /admin/setup using DEPLOY_KEY leaked from /api/config"
+}
